@@ -1,0 +1,91 @@
+/* Invoice container */
+.invoice {
+  /* font-family: Arial, sans-serif; */
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+/* Header */
+.invoice-header {
+  text-align: center;
+}
+
+.invoice-header h1 {
+  color: #333;
+}
+
+.invoice-header p {
+  margin: 5px 0;
+}
+
+/* Shopkeeper and Customer Info */
+.info-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.shopkeeper-info, .customer-info {
+  flex: 1;
+  padding: 0 20px;
+}
+
+.shopkeeper-info h2, .customer-info h2 {
+  font-size: 16px;
+  color: #333;
+}
+
+.shopkeeper-info p, .customer-info p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+/* Table styling */
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.invoice-table th, .invoice-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.invoice-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.invoice-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Total row styling */
+.total-row {
+  font-weight: bold;
+  background-color: #f9f9f9;
+  border-top: 2px solid #ccc;
+}
+
+.total-row td {
+  text-align: right;
+}
+
+/* Footer */
+.invoice-footer {
+  margin-top: 20px;
+  text-align: right;
+}
+
+@media (max-width: 320px) {
+  .invoice{
+    max-width: 318px;
+    margin: 20px 0px;
+    padding: 2px;
+  }
+}

@@ -1,0 +1,101 @@
+/* Center the text fields */
+.text-field-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Container for the textfield */
+.textfield-container {
+  position: relative;
+  margin: 10px 0;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Floating label */
+.textfield-label {
+  position: absolute;
+  top: 16px;
+  left: 12px;
+  font-size: 16px;
+  color: #aaa;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+/* Input field */
+.textfield-input {
+  width: 100%;
+  padding: 16px 12px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focused state for input */
+.textfield-input:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Floating label moves up when focused or when input has value */
+.textfield-container.focused .textfield-label,
+.textfield-label.filled {
+  top: -8px;
+  left: 10px;
+  font-size: 12px;
+  color: #4CAF50;
+  background-color: white;
+  padding: 0 4px;
+  transition: all 0.3s ease;
+}
+
+/* Placeholder styling */
+.textfield-input::placeholder {
+  color: #aaa;
+  font-size: 14px;
+  transition: opacity 0.3s ease;
+}
+
+/* Hide placeholder when input has value or is focused */
+.textfield-container.focused .textfield-input::placeholder {
+  opacity: 0;
+}
+
+/* Disabled input field */
+.textfield-input:disabled {
+  background-color: #f9f9f9;
+  cursor: not-allowed;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 320px) {
+  .textfield-container {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .textfield-input {
+    padding: 12px 8px;
+    font-size: 14px;
+  }
+
+  .textfield-label {
+    top: 14px;
+    left: 16px;
+    font-size: 14px;
+  }
+
+  .textfield-container.focused .textfield-label,
+  .textfield-label.filled {
+    top: -6px;
+    left: 12px;
+    font-size: 10px;
+    padding: 0 2px;
+  }
+}
