@@ -30,7 +30,7 @@
   @media (max-width: 320px) {
     .custom-table th, .custom-table td {
       border: 1px solid #ddd;
-      padding: 4px;
+      padding: 0px;
       text-align: left;
     }
   }
