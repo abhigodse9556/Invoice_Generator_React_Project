@@ -16,7 +16,7 @@ const Invoice = ({ shopInfo, shopkeeperInfo, customerInfo, tableData, totalPrice
         <h2>Trader's Info</h2>
         <p><strong>Name:</strong> {shopkeeperInfo.name}</p>
         <p><strong>Contact No:</strong> {shopkeeperInfo.contact}</p>
-        <p><strong>Email ID:</strong> {shopkeeperInfo.email}</p>
+        {/* <p><strong>Email ID:</strong> {shopkeeperInfo.email}</p> */}
         {/* <p><strong>Address:</strong> {shopkeeperInfo.address}</p> */}
       </section>
 

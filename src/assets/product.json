@@ -1,4 +1,6 @@
 [
+    {"name": "Door"},
+    {"name": "Door Frame"},
     {"name": "Chair" },
     {"name": "Sofas" },
     {"name": "Beds" },
