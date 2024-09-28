@@ -191,8 +191,18 @@ function App() {
 
             /* Footer */
             .invoice-footer {
-              margin-top: 20px;
+              display: flex;
+              flex-direction: column;
+              align-items: end;
+              padding: 10px 15px;
+              margin-top: 25px;
               text-align: right;
+            }
+
+            .invoice-footer .sign-box{
+              /* border: 1px solid gray; */
+              height: 50px;
+              width: 150px;
             }
 
           </style

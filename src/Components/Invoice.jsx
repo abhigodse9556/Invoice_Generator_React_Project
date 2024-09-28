@@ -3,10 +3,13 @@ import './comp_CSS/invoice.css'; // Import your CSS for styling
 import Table from './Table'; // Import the Table component
 
 const Invoice = ({ shopInfo, shopkeeperInfo, customerInfo, tableData, totalPrice }) => {
-  const currentDate = new Date().toLocaleDateString();
+const currentDate = new Date();
+const options = { day: 'numeric', month: 'short', year: 'numeric' };
+const formattedDate = currentDate.toLocaleDateString('en-GB', options);
 
   return (
     <div id="invoice-to-print" className="invoice">
+      <p className='current-date'>{formattedDate}</p>
       <header className="invoice-header">
         <h1 className='app-title'>{shopInfo.name}</h1>
         <p>{shopInfo.address}</p>
@@ -33,7 +36,9 @@ const Invoice = ({ shopInfo, shopkeeperInfo, customerInfo, tableData, totalPrice
       </section>
 
       <footer className="invoice-footer">
-        <p><strong>Date:</strong> {currentDate}</p>
+        <b>For, Guruprasad Furniture</b>
+        <div className='sign-box'></div>
+        <b>Authorised Signatory</b>
       </footer>
     </div>
   );

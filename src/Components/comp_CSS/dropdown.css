@@ -7,7 +7,7 @@
 
 /* Dropdown toggle button */
 .dropdown-toggle {
-  background-color: darkgoldenrod; /* Green color */
+  background-color: darkgoldenrod; 
   color: white;
   padding: 12px 16px;
   font-size: 16px;
@@ -21,7 +21,7 @@
 }
 
 .dropdown-toggle:hover {
-  background-color: #45a049; /* Darker green */
+  background-color: rgb(252, 183, 7); 
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
@@ -67,11 +67,11 @@
 /* Hover effects for dropdown items */
 .dropdown-menu li:hover {
   background-color: #f1f1f1;
-  color: #4CAF50; /* Matching the toggle button color */
+  color: rgb(252, 183, 7); /* Matching the toggle button color */
 }
 
 /* Active dropdown item */
 .dropdown-menu li.active {
-  background-color: #4CAF50;
+  background-color: rgb(252, 183, 7);
   color: white;
 }
