@@ -28,19 +28,23 @@
   margin-bottom: 20px;
 }
 
-.shopkeeper-info, .customer-info {
+.shopkeeper-info,
+.customer-info {
   flex: 1;
   padding: 0 20px;
 }
 
-.shopkeeper-info h2, .customer-info h2 {
+.shopkeeper-info h2,
+.customer-info h2 {
   font-size: 16px;
   color: #333;
 }
 
-.shopkeeper-info p, .customer-info p {
+.shopkeeper-info p,
+.customer-info p {
   margin: 5px 0;
   font-size: 14px;
+  color: #666;
 }
 
 /* Table styling */
@@ -50,10 +54,13 @@
   margin-top: 20px;
 }
 
-.invoice-table th, .invoice-table td {
+.invoice-table th,
+.invoice-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
+  font-size: 14px;
+  color: #333;
 }
 
 .invoice-table th {
@@ -74,6 +81,8 @@
 
 .total-row td {
   text-align: right;
+  font-size: 16px;
+  color: #333;
 }
 
 /* Footer */
@@ -87,13 +96,13 @@
   /* border: 1px solid rgb(100, 100, 100); */
 }
 
-.invoice-footer .sign-box{
+.invoice-footer .sign-box {
   /* border: 1px solid gray; */
   height: 50px;
   width: 150px;
 }
 @media (max-width: 320px) {
-  .invoice{
+  .invoice {
     max-width: 318px;
     margin: 20px 0px;
     padding: 2px;

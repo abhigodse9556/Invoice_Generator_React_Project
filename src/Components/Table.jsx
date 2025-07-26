@@ -1,5 +1,4 @@
-import React from 'react';
-import './comp_CSS/table.css'; // Make sure the path is correct
+import "./comp_CSS/table.css"; // Make sure the path is correct
 
 const Table = ({ data, totalPrice }) => {
   return (
@@ -25,7 +24,9 @@ const Table = ({ data, totalPrice }) => {
         ))}
         {/* Fixed row for total price */}
         <tr className="total-row">
-          <td colSpan="4" style={{ textAlign: 'right' }}>Total</td>
+          <td colSpan="4" style={{ textAlign: "right" }}>
+            Total
+          </td>
           <td>{totalPrice}</td>
         </tr>
       </tbody>
@@ -34,3 +35,5 @@ const Table = ({ data, totalPrice }) => {
 };
 
 export default Table;
+
+Table.propTypes;

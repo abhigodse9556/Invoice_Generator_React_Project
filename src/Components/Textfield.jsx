@@ -1,29 +1,43 @@
-import './comp_CSS/textfield.css';
-import React, { useState } from 'react';
+import "./comp_CSS/textfield.css";
+import { useState } from "react";
 
-const TextField = ({ label, placeholder, type = "text", value, onChange, disabled, name }) => {
+const TextField = ({
+  label,
+  // placeholder,
+  type = "text",
+  value,
+  onChange,
+  disabled,
+  name,
+}) => {
   const [focused, setFocused] = useState(false);
 
   const handleFocus = () => setFocused(true);
   const handleBlur = () => setFocused(false);
 
   return (
-    <div className='text-field-div'>
-      <div className={`textfield-container ${focused || value ? 'focused' : ''}`}>
+    <div className="text-field-div">
+      <div
+        className={`textfield-container ${focused || value ? "focused" : ""}`}
+      >
         {/* Floating label */}
-        <label className={`textfield-label ${value || focused ? 'filled' : ''}`}>
+        <label
+          className={`textfield-label ${value || focused ? "filled" : ""}`}
+        >
           {label}
         </label>
-        
+
         {/* Input field */}
         <input
           type={type}
-          value={value}  // Controlled input value
+          value={value} // Controlled input value
           className="textfield-input"
           onFocus={handleFocus}
           onBlur={handleBlur}
-          onChange={(e) => onChange(e.target.value, name)}  // Pass value and name
-          disabled={disabled}  // Handle disabled state
+          onChange={(e) => onChange(e.target.value, name)} // Pass value and name
+          disabled={disabled} // Handle disabled state
+          // placeholder={placeholder}
+          style={{ cursor: disabled ? "not-allowed" : "auto", color: "black" }}
         />
       </div>
     </div>
@@ -31,3 +45,5 @@ const TextField = ({ label, placeholder, type = "text", value, onChange, disable
 };
 
 export default TextField;
+
+TextField.propTypes;

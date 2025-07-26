@@ -1,39 +1,40 @@
-import React, { useState } from 'react';
-import './App.css';
-import Dropdown from './Components/Dropdown';
-import TextField from './Components/Textfield';
-import Button from './Components/Button';
-import Table from './Components/Table';
-import Invoice from './Components/Invoice';
-import products from './assets/product.json';
+import { useState } from "react";
+import "./App.css";
+import Dropdown from "./Components/Dropdown";
+import TextField from "./Components/Textfield";
+import Button from "./Components/Button";
+import Table from "./Components/Table";
+import Invoice from "./Components/Invoice";
+import products from "./assets/product.json";
 
 function App() {
-  const options = products.map(product => product.name);
-  const [rate, setRate] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [price, setPrice] = useState('');
-  const [selectedProduct, setSelectedProduct] = useState('');
+  const options = products.map((product) => product.name);
+  const [rate, setRate] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState("");
   const [tableData, setTableData] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
   // Shop and shopkeeper information
   const shopInfo = {
-    name: 'Guruprasad Furniture',
-    address: 'Guruprasad Saw Mill, Shivaji Road, Dhanyabajar, Vaduj, (Khatav, Satara) - 415506'
+    name: "Guruprasad Furniture",
+    address:
+      "Guruprasad Saw Mill, Shivaji Road, Dhanyabajar, Vaduj, (Khatav, Satara) - 415506",
   };
 
   const shopkeeperInfo = {
-    name: 'Nilesh Nikam / Gaurav Nikam',
-    contact: '9881821098 / 7397931121',
+    name: "Nilesh Nikam / Gaurav Nikam",
+    contact: "9881821098 / 7397931121",
     //email: 'gauravnikam@gmail.com',
     // address: ''
   };
 
   // Dynamic customer information
   const [customerInfo, setCustomerInfo] = useState({
-    name: '',
-    contact: '',
-    address: ''
+    name: "",
+    contact: "",
+    address: "",
   });
 
   // Invoice visibility state
@@ -46,7 +47,7 @@ function App() {
     if (!isNaN(rateNum) && !isNaN(quantityNum)) {
       setPrice((rateNum * quantityNum).toFixed(2));
     } else {
-      setPrice('');
+      setPrice("");
     }
   };
 
@@ -65,7 +66,12 @@ function App() {
   };
 
   const handleAddClick = () => {
-    if (selectedProduct && rate.trim() !== '' && quantity.trim() !== '' && price.trim() !== '') {
+    if (
+      selectedProduct &&
+      rate.trim() !== "" &&
+      quantity.trim() !== "" &&
+      price.trim() !== ""
+    ) {
       const newRow = {
         productName: selectedProduct,
         rate: rate,
@@ -73,19 +79,19 @@ function App() {
         price: price,
       };
       setTableData([...tableData, newRow]);
-      setTotalPrice(prevTotal => prevTotal + parseFloat(price));
-      setRate('');
-      setQuantity('');
-      setPrice('');
+      setTotalPrice((prevTotal) => prevTotal + parseFloat(price));
+      setRate("");
+      setQuantity("");
+      setPrice("");
     } else {
-      alert('Please fill all the fields');
+      alert("Please fill all the fields");
     }
   };
 
   const handleCustomerInfoChange = (value, name) => {
-    setCustomerInfo(prevState => ({
+    setCustomerInfo((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -94,11 +100,11 @@ function App() {
   };
 
   const handlePrintInvoiceClick = () => {
-    const printWindow = window.open('', '', 'height=600,width=800');
-    
+    const printWindow = window.open("", "", "height=600,width=800");
+
     // Get the HTML content of the invoice
-    const invoiceHTML = document.getElementById('invoice-to-print').innerHTML;
-    
+    const invoiceHTML = document.getElementById("invoice-to-print").innerHTML;
+
     // Generate the full HTML for the print window
     printWindow.document.open();
     printWindow.document.write(`
@@ -214,43 +220,42 @@ function App() {
       </html>
     `);
     printWindow.document.close();
-    
+
     // Wait for the new document to be fully loaded before printing
     printWindow.onload = () => {
       printWindow.focus();
       printWindow.print();
     };
   };
-  
 
   return (
     <div>
-      <h1 className='app-title'>Guruprasad Furniture</h1>
+      <h1 className="app-title">Guruprasad Furniture</h1>
       <h3>Invoice Generator</h3>
-      <Dropdown 
-        options={options} 
-        label="Select Product" 
-        selectedOption={selectedProduct} 
-        onChange={handleProductChange} 
+      <Dropdown
+        options={options}
+        label="Select Product"
+        selectedOption={selectedProduct}
+        onChange={handleProductChange}
       />
-      <TextField 
-        label="Rate" 
-        placeholder="Enter Product Rate" 
+      <TextField
+        label="Rate"
+        placeholder="Enter Product Rate"
         type="number"
         value={rate}
         onChange={handleRateChange}
       />
-      <TextField 
-        label="Quantity" 
-        placeholder="Enter Quantity" 
-        type="number" 
+      <TextField
+        label="Quantity"
+        placeholder="Enter Quantity"
+        type="number"
         value={quantity}
         onChange={handleQuantityChange}
       />
-      <TextField 
-        label="Price" 
-        placeholder="Price" 
-        type="number" 
+      <TextField
+        label="Price"
+        placeholder="Price"
+        type="number"
         value={price}
         disabled
       />
@@ -285,22 +290,20 @@ function App() {
         />
       </section>
 
-      
-
       {/* Button to show the invoice */}
       <Button onClick={handleShowInvoiceClick} label="Generate Invoice" />
 
       {/* Conditionally render the invoice */}
       {showInvoice && (
         <div>
-        <Invoice 
-          shopInfo={shopInfo}
-          shopkeeperInfo={shopkeeperInfo}
-          customerInfo={customerInfo}
-          tableData={tableData}
-          totalPrice={totalPrice}
-        />
-        <Button onClick={handlePrintInvoiceClick} label="Print Invoice" />
+          <Invoice
+            shopInfo={shopInfo}
+            shopkeeperInfo={shopkeeperInfo}
+            customerInfo={customerInfo}
+            tableData={tableData}
+            totalPrice={totalPrice}
+          />
+          <Button onClick={handlePrintInvoiceClick} label="Print Invoice" />
         </div>
       )}
     </div>
