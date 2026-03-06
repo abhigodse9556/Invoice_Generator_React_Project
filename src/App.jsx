@@ -24,8 +24,8 @@ function App() {
   };
 
   const shopkeeperInfo = {
-    name: "Nilesh Nikam / Gaurav Nikam",
-    contact: "9881821098 / 7397931121",
+    name: "Gaurav Nikam / Nilesh Nikam",
+    contact: "7397931121 / 9881821098",
     //email: 'gauravnikam@gmail.com',
     // address: ''
   };

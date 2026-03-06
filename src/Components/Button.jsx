@@ -1,5 +1,4 @@
-import React from 'react';
-import './comp_CSS/button.css';
+import "./comp_CSS/button.css";
 
 const Button = ({ onClick, label }) => {
   return (
@@ -10,3 +9,5 @@ const Button = ({ onClick, label }) => {
 };
 
 export default Button;
+
+Button.propTypes;
