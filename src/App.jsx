@@ -7,6 +7,7 @@ import TextField from "./Components/Textfield";
 import Button from "./Components/Button";
 import Table from "./Components/Table";
 import Invoice from "./Components/Invoice";
+import Customer from "./Customer";
 import products from "./assets/product.json";
 
 const INVOICE_PRINT_STYLES = `
@@ -116,6 +117,7 @@ const INVOICE_PRINT_STYLES = `
 `;
 
 function App() {
+  const [showCustomersPage, setShowCustomersPage] = useState(false);
   const options = products.map((product) => product.name);
   const [rate, setRate] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -206,6 +208,10 @@ function App() {
 
   const handleShowInvoiceClick = () => {
     setShowInvoice(true);
+  };
+
+  const handleShowCustomersPage = () => {
+    setShowCustomersPage(true);
   };
 
   const handlePrintInvoiceClick = () => {
@@ -299,6 +305,10 @@ function App() {
     }
   };
 
+  if (showCustomersPage) {
+    return <Customer onBack={() => setShowCustomersPage(false)} />;
+  }
+
   return (
     <div>
       <h1 className="app-title">Guruprasad Furniture</h1>
@@ -364,6 +374,7 @@ function App() {
       {/* Button to show the invoice */}
       <Button onClick={handleShowInvoiceClick} label="Generate Invoice" style={{ marginRight: "10px" }} />
       <Button onClick={() => setShowSecondaryContact(!showSecondaryContact)} label={showSecondaryContact ? "Show Only Primary Contact" : "Show Both Contacts"} />
+      <Button onClick={handleShowCustomersPage} label="Get Customer List" style={{ marginLeft: "10px" }} />
 
       {/* Conditionally render the invoice */}
       {showInvoice && (
