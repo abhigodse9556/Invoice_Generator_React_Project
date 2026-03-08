@@ -31,6 +31,7 @@ const INVOICE_PRINT_STYLES = `
 
   .invoice-header p {
     margin: 5px 0;
+    color: #333;
   }
 
   /* Shopkeeper and Customer Info */
@@ -107,6 +108,10 @@ const INVOICE_PRINT_STYLES = `
     /* border: 1px solid gray; */
     height: 50px;
     width: 150px;
+  }
+
+  .invoice-footer b {
+    color: #333;
   }
 `;
 
