@@ -123,6 +123,7 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState("");
   const [tableData, setTableData] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [showSecondaryContact, setShowSecondaryContact] = useState(false);
 
   // Shop and shopkeeper information
   const shopInfo = {
@@ -132,8 +133,8 @@ function App() {
   };
 
   const shopkeeperInfo = {
-    name: "Gaurav Nikam / Nilesh Nikam",
-    contact: "7397931121 / 9881821098",
+    name: showSecondaryContact ? "Gaurav Nikam / Nilesh Nikam" : "Gaurav Nikam",
+    contact: showSecondaryContact ? "7397931121 / 9881821098" : "7397931121",
     //email: 'gauravnikam@gmail.com',
     // address: ''
   };
@@ -361,7 +362,8 @@ function App() {
       </section>
 
       {/* Button to show the invoice */}
-      <Button onClick={handleShowInvoiceClick} label="Generate Invoice" />
+      <Button onClick={handleShowInvoiceClick} label="Generate Invoice" style={{ marginRight: "10px" }} />
+      <Button onClick={() => setShowSecondaryContact(!showSecondaryContact)} label={showSecondaryContact ? "Show Only Primary Contact" : "Show Both Contacts"} />
 
       {/* Conditionally render the invoice */}
       {showInvoice && (
