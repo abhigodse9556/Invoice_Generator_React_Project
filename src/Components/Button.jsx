@@ -1,8 +1,8 @@
 import "./comp_CSS/button.css";
 
-const Button = ({ onClick, label }) => {
+const Button = ({ onClick, label, style }) => {
   return (
-    <button className="custom-button" onClick={onClick}>
+    <button className="custom-button" onClick={onClick} style={style}>
       {label}
     </button>
   );

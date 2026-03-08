@@ -1,4 +1,6 @@
 import { useState } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import "./App.css";
 import Dropdown from "./Components/Dropdown";
 import TextField from "./Components/Textfield";
@@ -6,6 +8,107 @@ import Button from "./Components/Button";
 import Table from "./Components/Table";
 import Invoice from "./Components/Invoice";
 import products from "./assets/product.json";
+
+const INVOICE_PRINT_STYLES = `
+  /* Invoice container */
+  .invoice {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+
+  /* Header */
+  .invoice-header {
+    text-align: center;
+  }
+
+  .invoice-header h1 {
+    color: #333;
+  }
+
+  .invoice-header p {
+    margin: 5px 0;
+  }
+
+  /* Shopkeeper and Customer Info */
+  .info-sec{
+    display: flex;
+    border: 1px solid #ddd;
+  }
+
+  .info-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .shopkeeper-info, .customer-info {
+    flex: 1;
+    padding: 0 20px;
+  }
+
+  .shopkeeper-info h2, .customer-info h2 {
+    font-size: 16px;
+    color: #333;
+  }
+
+  .shopkeeper-info p, .customer-info p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+
+  /* Table styling */
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  .custom-table th, .custom-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .custom-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+
+  .custom-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  /* Total row styling */
+  .total-row {
+    font-weight: bold;
+    background-color: #f9f9f9;
+    border-top: 2px solid #ccc;
+  }
+
+  .total-row td {
+    text-align: right;
+  }
+
+  /* Footer */
+  .invoice-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    padding: 10px 15px;
+    margin-top: 25px;
+    text-align: right;
+  }
+
+  .invoice-footer .sign-box{
+    /* border: 1px solid gray; */
+    height: 50px;
+    width: 150px;
+  }
+`;
 
 function App() {
   const options = products.map((product) => product.name);
@@ -112,106 +215,8 @@ function App() {
         <head>
           <title>Print Invoice</title>
           <style>
-            /* Invoice container */
-            .invoice {
-              font-family: Arial, sans-serif;
-              margin: 20px;
-              padding: 20px;
-              border: 1px solid #ddd;
-              border-radius: 5px;
-              background-color: #f9f9f9;
-            }
-
-            /* Header */
-            .invoice-header {
-              text-align: center;
-            }
-
-            .invoice-header h1 {
-              color: #333;
-            }
-
-            .invoice-header p {
-              margin: 5px 0;
-            }
-
-            /* Shopkeeper and Customer Info */
-            .info-sec{
-              display: flex;
-              border: 1px solid #ddd;
-            }
-
-            .info-container {
-              display: flex;
-              justify-content: space-between;
-              margin-bottom: 20px;
-            }
-
-            .shopkeeper-info, .customer-info {
-              flex: 1;
-              padding: 0 20px;
-            }
-
-            .shopkeeper-info h2, .customer-info h2 {
-              font-size: 16px;
-              color: #333;
-            }
-
-            .shopkeeper-info p, .customer-info p {
-              margin: 5px 0;
-              font-size: 14px;
-            }
-
-            /* Table styling */
-            .custom-table {
-              width: 100%;
-              border-collapse: collapse;
-              margin-top: 20px;
-            }
-
-            .custom-table th, .custom-table td {
-              border: 1px solid #ddd;
-              padding: 8px;
-              text-align: left;
-            }
-
-            .custom-table th {
-              background-color: #f2f2f2;
-              font-weight: bold;
-            }
-
-            .custom-table tr:nth-child(even) {
-              background-color: #f9f9f9;
-            }
-
-            /* Total row styling */
-            .total-row {
-              font-weight: bold;
-              background-color: #f9f9f9;
-              border-top: 2px solid #ccc;
-            }
-
-            .total-row td {
-              text-align: right;
-            }
-
-            /* Footer */
-            .invoice-footer {
-              display: flex;
-              flex-direction: column;
-              align-items: end;
-              padding: 10px 15px;
-              margin-top: 25px;
-              text-align: right;
-            }
-
-            .invoice-footer .sign-box{
-              /* border: 1px solid gray; */
-              height: 50px;
-              width: 150px;
-            }
-
-          </style
+            ${INVOICE_PRINT_STYLES}
+          </style>
           <link rel="stylesheet" href="./comp_css/invoice.css"/>
         </head>
         <body>
@@ -226,6 +231,66 @@ function App() {
       printWindow.focus();
       printWindow.print();
     };
+  };
+
+  const handleDownloadInvoiceClick = async () => {
+    const sourceInvoiceElement = document.getElementById("invoice-to-print");
+    if (!sourceInvoiceElement) return;
+
+    // Use the same HTML + manually injected <style> block as the print window
+    const invoiceHTML = sourceInvoiceElement.outerHTML;
+
+    const tempContainer = document.createElement("div");
+    tempContainer.style.position = "fixed";
+    tempContainer.style.left = "-10000px";
+    tempContainer.style.top = "0";
+    tempContainer.style.width = "800px";
+
+    tempContainer.innerHTML = `
+      <style>
+        ${INVOICE_PRINT_STYLES}
+      </style>
+      ${invoiceHTML}
+    `;
+
+    document.body.appendChild(tempContainer);
+
+    const targetElement = tempContainer.querySelector("#invoice-to-print");
+    if (!targetElement) {
+      document.body.removeChild(tempContainer);
+      return;
+    }
+
+    try {
+      const canvas = await html2canvas(targetElement, { scale: 2 });
+      const imgData = canvas.toDataURL("image/png");
+
+      const pdf = new jsPDF("p", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+
+      const imgProps = pdf.getImageProperties(imgData);
+      const ratio = Math.min(
+        pdfWidth / imgProps.width,
+        pdfHeight / imgProps.height
+      );
+
+      const imgWidth = imgProps.width * ratio;
+      const imgHeight = imgProps.height * ratio;
+
+      const x = (pdfWidth - imgWidth) / 2;
+      const y = 0;
+
+      pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
+      pdf.save("invoice.pdf");
+    } catch (error) {
+      // eslint-disable-next-line no-alert
+      alert("Failed to download invoice. Please try again.");
+      // eslint-disable-next-line no-console
+      console.error("Error generating PDF:", error);
+    } finally {
+      document.body.removeChild(tempContainer);
+    }
   };
 
   return (
@@ -303,7 +368,11 @@ function App() {
             tableData={tableData}
             totalPrice={totalPrice}
           />
-          <Button onClick={handlePrintInvoiceClick} label="Print Invoice" />
+          <Button onClick={handlePrintInvoiceClick} label="Print Invoice" style={{ marginRight: "10px" }} />
+          <Button
+            onClick={handleDownloadInvoiceClick}
+            label="Download Invoice"
+          />
         </div>
       )}
     </div>
